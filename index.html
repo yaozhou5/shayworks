@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yao Zhou. Designer, maker, builder of things.">
+  <title>Yao Zhou</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=amulya@700,800,400&f[]=synonym@400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0E0E10;
+      --text: #F0EDE8;
+      --text-dim: #6A6A6D;
+      --pop: #F0A050;
+      --blue: #6EA8D7;
+      --plum: #C084B8;
+      --border: #2A2A2E;
+    }
+
+    body {
+      font-family: 'Synonym', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    ::selection {
+      background: var(--pop);
+      color: var(--bg);
+    }
+
+    .page {
+      max-width: 680px;
+      padding: 40px 32px;
+    }
+
+    /* ---- The paragraph ---- */
+    .bio {
+      font-family: 'Amulya', sans-serif;
+      font-size: clamp(1.45rem, 3.8vw, 2rem);
+      font-weight: 700;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
+    }
+
+    /* ---- Hover triggers ---- */
+    .trigger {
+      position: relative;
+      cursor: pointer;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .trigger::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 1px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .trigger:hover::after { opacity: 1; }
+
+    .trigger.accent-trigger { color: var(--pop); }
+    .trigger.accent-trigger::after { background: var(--pop); }
+
+    .trigger.nexthustle-trigger { color: var(--blue); }
+    .trigger.nexthustle-trigger::after { background: var(--blue); }
+
+    .trigger.art-trigger { color: var(--plum); }
+    .trigger.art-trigger::after { background: var(--plum); }
+
+    .trigger.substack-trigger { color: #ff6b35; }
+    .trigger.substack-trigger::after { background: #ff6b35; }
+
+    /* ---- Preview card ---- */
+    .preview {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 100;
+      width: 320px;
+    }
+
+    .preview.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .preview-inner {
+      background: #18181B;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .preview-inner .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .preview-inner .tag .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .preview-inner h3 {
+      font-family: 'Amulya', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .preview-inner p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .preview-inner .link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    .preview.accent-preview .tag { color: var(--pop); }
+    .preview.accent-preview .tag .dot { background: var(--pop); }
+    .preview.accent-preview .link { color: var(--pop); }
+    .preview.accent-preview .preview-inner { border-color: rgba(240,160,80,0.2); }
+
+    .preview.nexthustle-preview .tag { color: var(--blue); }
+    .preview.nexthustle-preview .tag .dot { background: var(--blue); }
+    .preview.nexthustle-preview .link { color: var(--blue); }
+    .preview.nexthustle-preview .preview-inner { border-color: rgba(110,168,215,0.2); }
+
+    .preview.art-preview .tag { color: var(--plum); }
+    .preview.art-preview .tag .dot { background: var(--plum); }
+    .preview.art-preview .link { color: var(--plum); }
+    .preview.art-preview .preview-inner { border-color: rgba(192,132,184,0.2); }
+
+    .preview.substack-preview .tag { color: #ff6b35; }
+    .preview.substack-preview .tag .dot { background: #ff6b35; }
+    .preview.substack-preview .link { color: #ff6b35; }
+    .preview.substack-preview .preview-inner { border-color: rgba(255,107,53,0.2); }
+
+    /* ---- Skills ---- */
+    .skills {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .skills-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .skills-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .skill-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: all 0.25s;
+    }
+
+    .skill-chip:hover {
+      color: var(--text);
+      border-color: var(--text-dim);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ---- Footer links ---- */
+    .foot {
+      margin-top: 48px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .foot a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .foot a:hover { color: var(--text); }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 600px) {
+      body { align-items: flex-start; }
+      .page { padding: 48px 24px; }
+      .bio { font-size: 1.35rem; }
+      .preview { width: 280px; }
+      .foot { flex-wrap: wrap; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="bio">
+      I'm Yao, a product designer in Amsterdam who got tired of only making mockups. Now I build the real thing, usually with Claude Code and too much coffee. I'm currently making
+      <span class="trigger accent-trigger" data-preview="accent">Accent</span>, a tool that turns your notes into content that sounds like you, not a robot. I also built
+      <span class="trigger nexthustle-trigger" data-preview="nexthustle">NextHustle</span>, because I wanted proof that normal people, not influencers, actually make money on the side. When I'm not shipping, I'm either
+      <span class="trigger art-trigger" data-preview="art">cataloging art</span> I've seen in museums or
+      <span class="trigger substack-trigger" data-preview="substack">writing about building</span>.
+    </p>
+
+    <div class="skills">
+      <div class="skills-label">Claude Skills I've made</div>
+      <div class="skills-list">
+        <a class="skill-chip" href="https://github.com/yaozhou5/founder-briefing" target="_blank">Founder Briefing</a>
+        <a class="skill-chip" href="https://github.com/yaozhou5/overlay" target="_blank">Overlay</a>
+      </div>
+    </div>
+
+    <div class="foot">
+      <a href="https://www.linkedin.com/in/yaozhou5/" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/easycure_" target="_blank">Instagram</a>
+      <a href="https://xhslink.cn/m/5g8YFpa6d5i" target="_blank">小红书</a>
+      <a href="mailto:hello@yaozhou.me">hello@yaozhou.me</a>
+      <span style="color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 0.8rem;">📍 Amsterdam · <a href="https://startdock.nl" target="_blank" style="color: var(--text-dim); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-dim)'">StartDock</a></span>
+    </div>
+  </div>
+
+  <!-- Preview cards -->
+  <div class="preview accent-preview" id="preview-accent">
+    <div class="preview-inner">
+      <div class="tag"><span class="dot"></span> Actively building</div>
+      <h3>Accent</h3>
+      <p>For founders who have to post but don't have hours. Content in your voice, from your notes.</p>
+      <span class="link">myaccent.io →</span>
+    </div>
+  </div>
+
+  <div class="preview nexthustle-preview" id="preview-nexthustle">
+    <div class="preview-inner">
+      <div class="tag"><span class="dot"></span> Side project</div>
+      <h3>NextHustle</h3>
+      <p>40 real people, real income numbers, no fluff. A kindergarten teacher making $10K/mo selling worksheets. A dad making $26K/mo on Etsy. That kind of thing.</p>
+      <span class="link">nexthustle.site →</span>
+    </div>
+  </div>
+
+  <div class="preview art-preview" id="preview-art">
+    <div class="preview-inner">
+      <div class="tag"><span class="dot"></span> Personal project</div>
+      <h3>My Art Collection</h3>
+      <p>647 works I've photographed across the Louvre, Uffizi, Stedelijk, Getty, and more. Organized into my own personal museum. Built with Claude Code.</p>
+      <span class="link">art.shayworks.com →</span>
+    </div>
+  </div>
+
+  <div class="preview substack-preview" id="preview-substack">
+    <div class="preview-inner">
+      <div class="tag"><span class="dot"></span> Thinking out loud</div>
+      <h3>Substack</h3>
+      <p>I write about building with AI, the weird parts of being a maker, and why vibe coding changes everything.</p>
+      <span class="link">byshay.substack.com →</span>
+    </div>
+  </div>
+
+  <script>
+    const triggers = document.querySelectorAll('.trigger');
+    const previews = document.querySelectorAll('.preview');
+
+    const urls = {
+      accent: 'https://myaccent.io',
+      nexthustle: 'https://nexthustle.site',
+      art: 'https://art.shayworks.com',
+      substack: 'https://byshay.substack.com'
+    };
+
+    triggers.forEach(trigger => {
+      const key = trigger.dataset.preview;
+      const preview = document.getElementById(`preview-${key}`);
+
+      trigger.addEventListener('click', () => {
+        window.open(urls[key], '_blank');
+      });
+
+      trigger.addEventListener('mouseenter', () => {
+        preview.classList.add('visible');
+      });
+
+      trigger.addEventListener('mousemove', (e) => {
+        const pad = 16;
+        const cardW = 320;
+        const cardH = preview.offsetHeight;
+        let x = e.clientX + pad;
+        let y = e.clientY + pad;
+
+        if (x + cardW > window.innerWidth - pad) {
+          x = e.clientX - cardW - pad;
+        }
+        if (y + cardH > window.innerHeight - pad) {
+          y = e.clientY - cardH - pad;
+        }
+
+        preview.style.left = x + 'px';
+        preview.style.top = y + 'px';
+      });
+
+      trigger.addEventListener('mouseleave', () => {
+        preview.classList.remove('visible');
+      });
+
+      trigger.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const isVisible = preview.classList.contains('visible');
+        previews.forEach(p => p.classList.remove('visible'));
+        if (!isVisible) {
+          const rect = trigger.getBoundingClientRect();
+          preview.style.left = Math.min(rect.left, window.innerWidth - 296) + 'px';
+          preview.style.top = (rect.bottom + 12) + 'px';
+          preview.classList.add('visible');
+        }
+      });
+    });
+
+    document.addEventListener('touchstart', (e) => {
+      if (!e.target.closest('.trigger')) {
+        previews.forEach(p => p.classList.remove('visible'));
+      }
+    });
+  </script>
+</body>
+</html>
