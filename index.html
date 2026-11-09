@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yao Zhou. Designer, maker, builder of things.">
+  <meta name="description" content="The works of Yao Zhou. A product designer in Amsterdam who builds the real thing.">
   <title>Yao Zhou</title>
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=amulya@700,800,400&f[]=synonym@400,500&display=swap" rel="stylesheet">
@@ -14,11 +14,16 @@
     :root {
       --bg: #0E0E10;
       --text: #F0EDE8;
-      --text-dim: #6A6A6D;
-      --pop: #F0A050;
+      --text-soft: #C9C5BE;
+      --text-dim: #9A9A9E;
+      --border: #232327;
+      --accent: #F0A050;
+      --zorglane: #5EC4B0;
       --blue: #6EA8D7;
+      --lentil: #A9CF6E;
       --plum: #C084B8;
-      --border: #2A2A2E;
+      --orange: #FF8A5C;
+      --paper: #E4E0D9;
     }
 
     body {
@@ -26,346 +31,289 @@
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    ::selection {
-      background: var(--pop);
-      color: var(--bg);
-    }
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    a { color: inherit; }
 
     .page {
-      max-width: 680px;
-      padding: 40px 32px;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 72px 40px 96px;
     }
 
-    /* ---- The paragraph ---- */
-    .bio {
-      font-family: 'Amulya', sans-serif;
-      font-size: clamp(1.45rem, 3.8vw, 2rem);
-      font-weight: 700;
-      line-height: 1.55;
-      letter-spacing: -0.01em;
-    }
-
-    /* ---- Hover triggers ---- */
-    .trigger {
-      position: relative;
-      cursor: pointer;
-      transition: color 0.2s;
-      white-space: nowrap;
-    }
-
-    .trigger::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      border-radius: 1px;
-      opacity: 0.5;
-      transition: opacity 0.2s;
-    }
-
-    .trigger:hover::after { opacity: 1; }
-
-    .trigger.accent-trigger { color: var(--pop); }
-    .trigger.accent-trigger::after { background: var(--pop); }
-
-    .trigger.nexthustle-trigger { color: var(--blue); }
-    .trigger.nexthustle-trigger::after { background: var(--blue); }
-
-    .trigger.art-trigger { color: var(--plum); }
-    .trigger.art-trigger::after { background: var(--plum); }
-
-    .trigger.substack-trigger { color: #ff6b35; }
-    .trigger.substack-trigger::after { background: #ff6b35; }
-
-    /* ---- Preview card ---- */
-    .preview {
-      position: fixed;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(8px) scale(0.97);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      z-index: 100;
-      width: 320px;
-    }
-
-    .preview.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .preview-inner {
-      background: #18181B;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-
-    .preview-inner .tag {
+    .mono {
       font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .preview-inner .tag .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    .preview-inner h3 {
-      font-family: 'Amulya', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .preview-inner p {
-      font-size: 0.85rem;
-      line-height: 1.5;
+      font-size: 13px;
       color: var(--text-dim);
-      margin-bottom: 14px;
     }
 
-    .preview-inner .link {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
+    .caps { letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* Header */
+    header { max-width: 760px; margin-bottom: 40px; display: flex; flex-direction: column; gap: 22px; }
+    .intro { font-size: 22px; line-height: 1.5; color: var(--text-soft); max-width: 720px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* Room nav */
+    .rooms {
+      display: flex; flex-wrap: wrap; gap: 10px 28px;
+      padding: 18px 0; margin-bottom: 80px;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
     }
+    .rooms a { text-decoration: none; color: var(--text-soft); }
+    .rooms a:hover { color: var(--text); }
 
-    .preview.accent-preview .tag { color: var(--pop); }
-    .preview.accent-preview .tag .dot { background: var(--pop); }
-    .preview.accent-preview .link { color: var(--pop); }
-    .preview.accent-preview .preview-inner { border-color: rgba(240,160,80,0.2); }
+    /* Rooms */
+    section { margin-bottom: 96px; scroll-margin-top: 24px; }
+    section:last-of-type { margin-bottom: 0; }
+    .room-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .room-title { display: flex; align-items: baseline; gap: 16px; }
+    h2 {
+      font-family: 'Amulya', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+    }
+    .room-note { font-size: 16px; line-height: 1.5; color: var(--text-soft); }
 
-    .preview.nexthustle-preview .tag { color: var(--blue); }
-    .preview.nexthustle-preview .tag .dot { background: var(--blue); }
-    .preview.nexthustle-preview .link { color: var(--blue); }
-    .preview.nexthustle-preview .preview-inner { border-color: rgba(110,168,215,0.2); }
-
-    .preview.art-preview .tag { color: var(--plum); }
-    .preview.art-preview .tag .dot { background: var(--plum); }
-    .preview.art-preview .link { color: var(--plum); }
-    .preview.art-preview .preview-inner { border-color: rgba(192,132,184,0.2); }
-
-    .preview.substack-preview .tag { color: #ff6b35; }
-    .preview.substack-preview .tag .dot { background: #ff6b35; }
-    .preview.substack-preview .link { color: #ff6b35; }
-    .preview.substack-preview .preview-inner { border-color: rgba(255,107,53,0.2); }
-
-    /* ---- Skills ---- */
-    .skills {
-      margin-top: 32px;
-      padding-top: 24px;
+    /* Exhibits */
+    .ex {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1.15fr) minmax(0, 1fr) 400px;
+      gap: 28px;
+      align-items: start;
+      padding: 34px 0;
       border-top: 1px solid var(--border);
-    }
-
-    .skills-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
-    }
-
-    .skills-list {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .skill-chip {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--text-dim);
       text-decoration: none;
-      padding: 6px 14px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      transition: all 0.25s;
-    }
-
-    .skill-chip:hover {
       color: var(--text);
-      border-color: var(--text-dim);
-      background: rgba(255,255,255,0.04);
+    }
+    .ex:last-child { border-bottom: 1px solid var(--border); }
+    .ex:focus-visible { outline: 2px solid var(--text); outline-offset: 6px; }
+    .no { padding-top: 10px; }
+    .name { display: flex; flex-direction: column; gap: 8px; }
+    .title {
+      font-family: 'Amulya', sans-serif;
+      font-weight: 800;
+      font-size: 46px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--c);
+      transition: letter-spacing .25s;
+    }
+    .ex:hover .title, .ex:focus-visible .title { letter-spacing: -0.01em; }
+    .medium { font-size: 15px; color: var(--text-dim); }
+    .medium em { font-style: italic; }
+    .label { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
+    .desc { font-size: 16px; line-height: 1.55; color: var(--paper); }
+    .credit { font-size: 13px; color: var(--text-dim); }
+    .go { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--c); }
+
+    .shot {
+      grid-column: 4;
+      grid-row: 1;
+      margin-top: -10px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 0 1px #2E2E33;
+      opacity: 0;
+      transform: translateY(8px) scale(.98);
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
+    }
+    .shot img { display: block; width: 100%; height: auto; }
+    .ex:hover .shot, .ex:focus-visible .shot { opacity: 1; transform: none; }
+
+    footer { margin-top: 96px; display: flex; flex-direction: column; gap: 16px; }
+    .links { display: flex; flex-wrap: wrap; gap: 12px 28px; font-family: 'DM Mono', monospace; font-size: 14px; }
+    .links a { color: var(--text-soft); }
+    .links a:hover { color: var(--text); }
+
+    /* Tablet: no hover column */
+    @media (max-width: 960px) {
+      .ex { grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1fr); }
+      .shot { display: none; }
     }
 
-    /* ---- Footer links ---- */
-    .foot {
-      margin-top: 48px;
-      display: flex;
-      gap: 24px;
+    /* Phone: one column, screenshot shown as a small thumbnail (no hover on touch) */
+    @media (max-width: 640px) {
+      .page { padding: 40px 20px 56px; }
+      .intro { font-size: 19px; }
+      .title { font-size: 36px; }
+      .ex { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+      .no { padding-top: 0; }
+      .shot {
+        display: block;
+        grid-column: 1;
+        grid-row: auto;
+        margin-top: 6px;
+        opacity: 1;
+        transform: none;
+      }
     }
 
-    .foot a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .foot a:hover { color: var(--text); }
-
-    /* ---- Mobile ---- */
-    @media (max-width: 600px) {
-      body { align-items: flex-start; }
-      .page { padding: 48px 24px; }
-      .bio { font-size: 1.35rem; }
-      .preview { width: 280px; }
-      .foot { flex-wrap: wrap; gap: 16px; }
+    @media (prefers-reduced-motion: reduce) {
+      .title, .shot { transition: none; }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <p class="bio">
-      I'm Yao, a product designer in Amsterdam who got tired of only making mockups. Now I build the real thing, usually with Claude Code and too much coffee. I'm currently making
-      <span class="trigger accent-trigger" data-preview="accent">Accent</span>, a tool that turns your notes into content that sounds like you, not a robot. I also built
-      <span class="trigger nexthustle-trigger" data-preview="nexthustle">NextHustle</span>, because I wanted proof that normal people, not influencers, actually make money on the side. When I'm not shipping, I'm either
-      <span class="trigger art-trigger" data-preview="art">cataloging art</span> I've seen in museums or
-      <span class="trigger substack-trigger" data-preview="substack">writing about building</span>.
-    </p>
 
-    <div class="skills">
-      <div class="skills-label">Claude Skills I've made</div>
-      <div class="skills-list">
-        <a class="skill-chip" href="https://github.com/yaozhou5/founder-briefing" target="_blank">Founder Briefing</a>
-        <a class="skill-chip" href="https://github.com/yaozhou5/overlay" target="_blank">Overlay</a>
+    <header>
+      <h1 class="sr-only">Yao Zhou</h1>
+      <p class="intro">I'm Yao Zhou, a product designer in Amsterdam who got tired of only making mockups. Everything here is real, and was made with Claude Code and too much coffee. Two of these I'm building seriously; the rest are weekend projects, made for fun.</p>
+    </header>
+
+    <nav class="rooms mono" aria-label="Rooms">
+      <a href="#room-1">Room 1 · Currently on view</a>
+      <a href="#room-2">Room 2 · Weekend projects</a>
+      <a href="#room-3">Room 3 · Works on paper</a>
+      <span>Hover a work to look inside</span>
+    </nav>
+
+    <section id="room-1">
+      <div class="room-head">
+        <div class="room-title"><span class="mono">Room 1</span><h2>Currently on view</h2></div>
+        <p class="room-note">The two I'm building seriously.</p>
       </div>
-    </div>
 
-    <div class="foot">
-      <a href="https://www.linkedin.com/in/yaozhou5/" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/easycure_" target="_blank">Instagram</a>
-      <a href="https://xhslink.cn/m/5g8YFpa6d5i" target="_blank">小红书</a>
-      <a href="mailto:hello@yaozhou.me">hello@yaozhou.me</a>
-      <span style="color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 0.8rem;">📍 Amsterdam · <a href="https://startdock.nl" target="_blank" style="color: var(--text-dim); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-dim)'">StartDock</a></span>
-    </div>
+      <a class="ex" href="https://myaccent.io" style="--c: var(--accent)">
+        <span class="no mono">No. 01</span>
+        <span class="name">
+          <span class="title">Accent</span>
+          <span class="medium"><em>2026</em> · Claude API, Next.js and Supabase, with too much coffee</span>
+        </span>
+        <span class="label">
+          <span class="desc">Turn your thoughts into clearer writing without losing your words, meaning or personality.</span>
+          <span class="credit">Work in progress. Visitors may touch.</span>
+          <span class="go">myaccent.io →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/accent.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+
+      <a class="ex" href="https://zorglane.com" style="--c: var(--zorglane)">
+        <span class="no mono">No. 02</span>
+        <span class="name">
+          <span class="title">Zorglane</span>
+          <span class="medium"><em>2026</em> · Official Dutch government sources, rendered in plain English</span>
+        </span>
+        <span class="label">
+          <span class="desc">Dutch healthcare rules are scattered and depend on your situation. A way for internationals to see what official sources say, and who to ask.</span>
+          <span class="credit">Not medical, legal or financial advice.</span>
+          <span class="go">zorglane.com →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/zorglane.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+    </section>
+
+    <section id="room-2">
+      <div class="room-head">
+        <div class="room-title"><span class="mono">Room 2</span><h2>Weekend projects</h2></div>
+        <p class="room-note">Everything from here on was made on weekends, just for fun.</p>
+      </div>
+
+      <a class="ex" href="https://nexthustle.site" style="--c: var(--blue)">
+        <span class="no mono">No. 03</span>
+        <span class="name">
+          <span class="title">NextHustle</span>
+          <span class="medium">40 real people, real income numbers</span>
+        </span>
+        <span class="label">
+          <span class="desc">Proof that normal people, not influencers, actually make money on the side. A dad making $26K/mo on Etsy. That kind of thing.</span>
+          <span class="credit">No fluff was used in the making of this work.</span>
+          <span class="go">nexthustle.site →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/nexthustle.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+
+      <a class="ex" href="https://please-respect-the-lentils.pages.dev" style="--c: var(--lentil)">
+        <span class="no mono">No. 04</span>
+        <span class="name">
+          <span class="title">Please Respect the Lentils</span>
+          <span class="medium"><em>2026</em> · 25 Albert Heijn products, package labels, questionable science</span>
+        </span>
+        <span class="label">
+          <span class="desc">A daily game: sort a real grocery delivery by protein. Three rounds, three different winners.</span>
+          <span class="credit">On loan from the author's kitchen.</span>
+          <span class="go">Play today's shelf →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/lentils.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+
+      <a class="ex" href="https://art.shayworks.com" style="--c: var(--plum)">
+        <span class="no mono">No. 05</span>
+        <span class="name">
+          <span class="title">My Art Collection</span>
+          <span class="medium"><em>ongoing</em> · 647 photographs from the Louvre, Uffizi, Stedelijk, Getty and more</span>
+        </span>
+        <span class="label">
+          <span class="desc">A personal museum of the art I've stood in front of, built with Claude Code.</span>
+          <span class="credit">A collection within the collection.</span>
+          <span class="go">art.shayworks.com →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/art.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+    </section>
+
+    <section id="room-3">
+      <div class="room-head">
+        <div class="room-title"><span class="mono">Room 3</span><h2>Works on paper</h2></div>
+        <p class="room-note">Also weekend projects. Also for fun.</p>
+      </div>
+
+      <a class="ex" href="https://byshay.substack.com" style="--c: var(--orange)">
+        <span class="no mono">No. 06</span>
+        <span class="name">
+          <span class="title">Off Current</span>
+          <span class="medium"><em>2025–</em> · Words, published on Substack</span>
+        </span>
+        <span class="label">
+          <span class="desc">A publication about the patterns behind behavior, creativity and decision-making.</span>
+          <span class="go">byshay.substack.com →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/substack.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+
+      <a class="ex" href="https://github.com/yaozhou5/founder-briefing" style="--c: var(--paper)">
+        <span class="no mono">No. 07</span>
+        <span class="name">
+          <span class="title">Founder Briefing</span>
+          <span class="medium"><em>2026</em> · Claude skill</span>
+        </span>
+        <span class="label">
+          <span class="desc">Say "briefing" every morning. It picks three of today's business stories and teaches you a business concept through each one.</span>
+          <span class="go">GitHub →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/founder-briefing.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+
+      <a class="ex" href="https://github.com/yaozhou5/overlay" style="--c: var(--paper)">
+        <span class="no mono">No. 08</span>
+        <span class="name">
+          <span class="title">Overlay</span>
+          <span class="medium"><em>2026</em> · Claude Code skill</span>
+        </span>
+        <span class="label">
+          <span class="desc">Understand what your AI just built, before you ship it: a plain-language report of your codebase, with flags for anything that touches user data.</span>
+          <span class="go">GitHub →</span>
+        </span>
+        <span class="shot" aria-hidden="true"><img src="previews/overlay.jpg" alt="" width="800" height="500" loading="lazy"></span>
+      </a>
+    </section>
+
+    <footer>
+      <span class="mono caps">Visitor information</span>
+      <div class="links">
+        <a href="mailto:hello@yaozhou.me">hello@yaozhou.me</a>
+        <a href="https://www.linkedin.com/in/yaozhou5/">LinkedIn</a>
+        <a href="https://www.instagram.com/easycure_">Instagram</a>
+        <a href="https://xhslink.cn/m/5g8YFpa6d5i">小红书</a>
+        <span style="color: var(--text-dim)">Amsterdam · <a href="https://startdock.nl/" style="color: var(--text-dim)">StartDock</a></span>
+      </div>
+    </footer>
+
   </div>
-
-  <!-- Preview cards -->
-  <div class="preview accent-preview" id="preview-accent">
-    <div class="preview-inner">
-      <div class="tag"><span class="dot"></span> Actively building</div>
-      <h3>Accent</h3>
-      <p>For founders who have to post but don't have hours. Content in your voice, from your notes.</p>
-      <span class="link">myaccent.io →</span>
-    </div>
-  </div>
-
-  <div class="preview nexthustle-preview" id="preview-nexthustle">
-    <div class="preview-inner">
-      <div class="tag"><span class="dot"></span> Side project</div>
-      <h3>NextHustle</h3>
-      <p>40 real people, real income numbers, no fluff. A kindergarten teacher making $10K/mo selling worksheets. A dad making $26K/mo on Etsy. That kind of thing.</p>
-      <span class="link">nexthustle.site →</span>
-    </div>
-  </div>
-
-  <div class="preview art-preview" id="preview-art">
-    <div class="preview-inner">
-      <div class="tag"><span class="dot"></span> Personal project</div>
-      <h3>My Art Collection</h3>
-      <p>647 works I've photographed across the Louvre, Uffizi, Stedelijk, Getty, and more. Organized into my own personal museum. Built with Claude Code.</p>
-      <span class="link">art.shayworks.com →</span>
-    </div>
-  </div>
-
-  <div class="preview substack-preview" id="preview-substack">
-    <div class="preview-inner">
-      <div class="tag"><span class="dot"></span> Thinking out loud</div>
-      <h3>Substack</h3>
-      <p>I write about building with AI, the weird parts of being a maker, and why vibe coding changes everything.</p>
-      <span class="link">byshay.substack.com →</span>
-    </div>
-  </div>
-
-  <script>
-    const triggers = document.querySelectorAll('.trigger');
-    const previews = document.querySelectorAll('.preview');
-
-    const urls = {
-      accent: 'https://myaccent.io',
-      nexthustle: 'https://nexthustle.site',
-      art: 'https://art.shayworks.com',
-      substack: 'https://byshay.substack.com'
-    };
-
-    triggers.forEach(trigger => {
-      const key = trigger.dataset.preview;
-      const preview = document.getElementById(`preview-${key}`);
-
-      trigger.addEventListener('click', () => {
-        window.open(urls[key], '_blank');
-      });
-
-      trigger.addEventListener('mouseenter', () => {
-        preview.classList.add('visible');
-      });
-
-      trigger.addEventListener('mousemove', (e) => {
-        const pad = 16;
-        const cardW = 320;
-        const cardH = preview.offsetHeight;
-        let x = e.clientX + pad;
-        let y = e.clientY + pad;
-
-        if (x + cardW > window.innerWidth - pad) {
-          x = e.clientX - cardW - pad;
-        }
-        if (y + cardH > window.innerHeight - pad) {
-          y = e.clientY - cardH - pad;
-        }
-
-        preview.style.left = x + 'px';
-        preview.style.top = y + 'px';
-      });
-
-      trigger.addEventListener('mouseleave', () => {
-        preview.classList.remove('visible');
-      });
-
-      trigger.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        const isVisible = preview.classList.contains('visible');
-        previews.forEach(p => p.classList.remove('visible'));
-        if (!isVisible) {
-          const rect = trigger.getBoundingClientRect();
-          preview.style.left = Math.min(rect.left, window.innerWidth - 296) + 'px';
-          preview.style.top = (rect.bottom + 12) + 'px';
-          preview.classList.add('visible');
-        }
-      });
-    });
-
-    document.addEventListener('touchstart', (e) => {
-      if (!e.target.closest('.trigger')) {
-        previews.forEach(p => p.classList.remove('visible'));
-      }
-    });
-  </script>
 </body>
 </html>
